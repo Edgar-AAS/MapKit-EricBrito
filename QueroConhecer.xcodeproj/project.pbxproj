@@ -17,6 +17,7 @@
 		7289E82628EF8A89005C0D47 /* PlaceFinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7289E82528EF8A89005C0D47 /* PlaceFinderViewController.swift */; };
 		7289E82928EF9723005C0D47 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7289E82828EF9723005C0D47 /* MapViewController.swift */; };
 		72948CA328FB3A7D00DDD0C0 /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72948CA228FB3A7D00DDD0C0 /* PlaceAnnotation.swift */; };
+		72C2C56728FF0EC700ABF5E8 /* PlacesTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C2C56628FF0EC700ABF5E8 /* PlacesTableViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		7289E82528EF8A89005C0D47 /* PlaceFinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceFinderViewController.swift; sourceTree = "<group>"; };
 		7289E82828EF9723005C0D47 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		72948CA228FB3A7D00DDD0C0 /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
+		72C2C56628FF0EC700ABF5E8 /* PlacesTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				7289E82828EF9723005C0D47 /* MapViewController.swift */,
 				7289E82528EF8A89005C0D47 /* PlaceFinderViewController.swift */,
 				7289E82228EF8A03005C0D47 /* PlacesTableViewController.swift */,
+				72C2C56628FF0EC700ABF5E8 /* PlacesTableViewModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72948CA328FB3A7D00DDD0C0 /* PlaceAnnotation.swift in Sources */,
+				72C2C56728FF0EC700ABF5E8 /* PlacesTableViewModel.swift in Sources */,
 				7289E82928EF9723005C0D47 /* MapViewController.swift in Sources */,
 				7289E82328EF8A03005C0D47 /* PlacesTableViewController.swift in Sources */,
 				7289E80E28EF87F8005C0D47 /* AppDelegate.swift in Sources */,

@@ -13,10 +13,11 @@ protocol PlaceFinderDelegate: AnyObject {
 }
 
 class PlaceFinderViewController: UIViewController {
+    
     enum PlaceFinderMessageType {
         case error(String)
         case confirmation(String)
-    } 
+    }
     
     @IBOutlet var tfCity: UITextField!
     @IBOutlet var mapView: MKMapView!

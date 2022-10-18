@@ -10,7 +10,6 @@ import MapKit
 
 
 class PlaceAnnotation: NSObject, MKAnnotation {
-    
     enum PlaceType {
         case place
         case poi

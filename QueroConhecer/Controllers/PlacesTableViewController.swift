@@ -2,57 +2,43 @@
 //  PlacesTableViewController.swift
 //  QueroConhecer
 //
-//  Created by Leonardo Almeida on 06/10/22.
+//  Created by Edgar Arlindo on 06/10/22.
 //
 
 import UIKit
 
 class PlacesTableViewController: UITableViewController {
-    
-    var places: [Place] = []
-    let userDefaults = UserDefaults.standard
-    var lbNoPlaces: UILabel!
+    private var lbNoPlaces: UILabel!
+    private var viewModel = PlacesTableViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPlaces()
+        
+        viewModel.loadPlaces()
+        tableView.reloadData()
+        setLabelNoPlaces()
+    }
+    
+    func setLabelNoPlaces() {
         lbNoPlaces = UILabel()
-        lbNoPlaces.text = "Cadastre os locais que deseja conhecer\nclickando no botão acima"
+        lbNoPlaces.text = viewModel.noPlaceText
         lbNoPlaces.textAlignment = .center
         lbNoPlaces.numberOfLines = 0
     }
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier! != "mapSegue" {
-            let vc = segue.destination as! PlaceFinderViewController
-            vc.delegate = self
+            guard let placeFinderVC = segue.destination as? PlaceFinderViewController else { return }
+            placeFinderVC.delegate = self
         } else {
-            guard let vc = segue.destination as? MapViewController else { return }
-            
+            guard let mapVC = segue.destination as? MapViewController else { return }
             switch sender {
-            case let place as Place:
-                vc.places = [place]
-            default:
-                vc.places = places
+                case let place as Place:
+                    mapVC.places = [place]
+                default:
+                    mapVC.places = viewModel.getAllPlaces
             }
         }
-    }
-    
-    // MARK: - Table view data source
-    func loadPlaces() {
-        if let placesData = userDefaults.data(forKey: "places") {
-            do {
-                places = try JSONDecoder().decode([Place].self, from: placesData)
-                tableView.reloadData()
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func savePlaces() {
-        let json = try? JSONEncoder().encode(places)
-        userDefaults.setValue(json, forKey: "places")
     }
     
     @objc func showAll() {
@@ -60,7 +46,7 @@ class PlacesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if places.count > 0 {
+        if viewModel.getPlacesCount > 0 {
             let buttonShowAll = UIBarButtonItem(title: "Mostrar todos no mapa", style: .plain, target: self, action: #selector(showAll))
             navigationItem.leftBarButtonItem = buttonShowAll
             tableView.backgroundView = nil
@@ -69,38 +55,32 @@ class PlacesTableViewController: UITableViewController {
             tableView.backgroundView = lbNoPlaces
         }
         
-        return places.count
+        return viewModel.getPlacesCount
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let place = places[indexPath.row]
-        cell.textLabel?.text = place.name
+        cell.textLabel?.text = viewModel.getPlaceName(with: indexPath)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let place = places[indexPath.row]
+        let place = viewModel.getPlace(with: indexPath)
         performSegue(withIdentifier: "mapSegue", sender: place)
     }
     
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            places.remove(at: indexPath.row)
+            viewModel.removePlace(with: indexPath)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            savePlaces()
+            viewModel.savePlaces()
         }
     }
 }
 
 extension PlacesTableViewController: PlaceFinderDelegate {
     func addPlace(_ place: Place) {
-        //verificar se ja existe esse local
-        if !places.contains(place) {
-            places.append(place)
-            savePlaces()
-            tableView.reloadData()
-        }
+        viewModel.validatePlaces(place: place)
+        tableView.reloadData()
     }
 }

@@ -9,7 +9,6 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-    
     enum MapMessageType {
         case routeError
         case authorizationWarning
@@ -24,8 +23,8 @@ class MapViewController: UIViewController {
     
     var places: [Place]!
     var poi: [MKAnnotation] = []
-    //so vai ser instanciando no momento que for utilizado
     
+    //so vai ser instanciando no momento que for utilizado
     lazy var locationManager = CLLocationManager()
     var btUserLocation: MKUserTrackingButton!
     var selectedAnnotation: PlaceAnnotation?
@@ -50,7 +49,6 @@ class MapViewController: UIViewController {
         })
         
         configureLocationButton()
-        
         showPlaces()
         requestUserLocationAuthorization()
     }
@@ -279,13 +277,8 @@ extension MapViewController: CLLocationManagerDelegate {
         }
     }
     
-    //localizacao do usuario foi alterada
+    //Dispara quando a localizacao do usuario é alterada
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if let location = locations.last {
-//            print("Velocidade: ", location.speed)
-//
-//            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-//            mapView.setRegion(region, animated: true)
-//        }
+        
     }
 }
